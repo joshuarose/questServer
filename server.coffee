@@ -4,9 +4,7 @@ MongoWatch = require 'mongo-watch'
 watcher = new MongoWatch {format: 'pretty', username: 'deployd', password: 'deployd'}
 mongo = require 'mongodb'
 monk = require 'monk'
-db = monk 'localhost:27017/deployd'
-db.authenticate 'deployd', 'deployd', (err, result) ->
-	console.log(result)
+db = monk 'localhost:27017/deployd', { username : 'deployd', password : 'deployd'}
 
 testDevices = []
 
