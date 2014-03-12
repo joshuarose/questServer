@@ -12,7 +12,7 @@ testDevices = []
 
 watcher.watch 'deployd.quests', (event) ->
 	devices = []
-	console.log event.data.questtitle
+	console.log event.data.title
 	recipients = event.data.recipients
 	i = 0
 	while i < recipients.length
