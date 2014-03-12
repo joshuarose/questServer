@@ -12,6 +12,7 @@ testDevices = []
 
 watcher.watch 'deployd.quests', (event) ->
 	devices = []
+	console.log event
 	console.log event.data
 	console.log event.data.title
 	recipients = event.data.recipients
