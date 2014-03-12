@@ -1,7 +1,7 @@
 gcm = require("node-gcm")
 apn = require("apn")
 MongoWatch = require 'mongo-watch'
-watcher = new MongoWatch {format: 'pretty', username: 'deployd', password: 'deployd'}
+watcher = new MongoWatch {username: 'deployd', password: 'deployd'}
 mongo = require 'mongodb'
 monk = require 'monk'
 db = monk 'localhost:27017/deployd', { username : 'deployd', password : 'deployd'}
