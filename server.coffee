@@ -12,10 +12,8 @@ testDevices = []
 
 watcher.watch 'deployd.quests', (event) ->
 	devices = []
-	console.log event
-	console.log event.data
-	console.log event.data.title
-	recipients = event.data.recipients
+	console.log event.o.$set
+	recipients = event.o.$set.recipients
 	i = 0
 	while i < recipients.length
 		user = recipients[i].user
@@ -24,22 +22,24 @@ watcher.watch 'deployd.quests', (event) ->
 		collection.find query,{}, (e,docs) ->
 			if docs
 				devices.push docs[0].device
-				sendApple(devices, "You have a new quest titled #{event.data.questtitle}")
-				sendAndroid(devices, "You have a new quest titled #{event.data.questtitle}", "New quest")
+				sendApple(devices, "You have a new quest titled #{event.o.$set.title}")
+
+				sendAndroid(devices, "You have a new quest titled #{event.o.$set.title}", "New quest")
 		i++
 
 
 watcher.watch 'deployd.results', (event) ->
 	devices = []
-	console.log event.data.owner
-	creator = event.data.owner
+	console.log event
+	console.log event.o.owner
+	creator = event.o.owner
 	query = {username : creator}
 	collection = db.get 'users'
 	collection.find query,{}, (e,docs) ->
 		if docs
 			devices.push docs[0].device
-			sendApple(devices, "You have a new result from quest #{event.data.questtitle}")
-			sendAndroid(devices, "You have a new result #{event.data.questtitle}", "New result")
+			sendApple(devices, "You have a new result from quest #{event.o.questtitle}")
+			sendAndroid(devices, "You have a new result #{event.o.questtitle}", "New result")
 
 options =
   gateway: "gateway.push.apple.com"
